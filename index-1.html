@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Me</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131c;
+      --border: #1e1e2e;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --glow: rgba(124, 58, 237, 0.15);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* BG grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,58,237,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding-bottom: 56px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .avatar-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 28px;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      animation: spin 4s linear infinite;
+      z-index: 0;
+    }
+
+    .avatar-ring::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--accent2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 8vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 40%, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 28px;
+    }
+
+    .tagline span {
+      color: var(--accent2);
+      font-weight: 600;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 32px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .section h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .section p {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    /* JOURNEY CARDS */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+    }
+
+    .card-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    /* GOALS */
+    .goals-list {
+      list-style: none;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .goals-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .goals-list li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      flex-shrink: 0;
+    }
+
+    .goals-list li strong {
+      color: #fff;
+    }
+
+    /* INSPO */
+    .inspo-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .inspo-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .inspo-chip:hover {
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    /* PLATFORM */
+    .platform-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .platform-card {
+      flex: 1;
+      min-width: 140px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .platform-icon {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .platform-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .platform-status {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* CTA */
+    .cta {
+      padding-top: 48px;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 36px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .cta-btn:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+      .stats-row { gap: 20px; }
+      .platform-card { min-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="avatar-wrap">
+        <div class="avatar-ring"></div>
+        <div class="avatar">🎬</div>
+      </div>
+
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Sedang aktif berkembang
+      </div>
+
+      <h1>Affiliate &<br/>Content Clipper</h1>
+
+      <p class="tagline">
+        Pemula yang serius. Belajar dari nol,
+        fokus membangun <span>audiens organik</span> dan
+        menghasilkan uang dari konten.
+      </p>
+
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-num">600+</span>
+          <span class="stat-label">Target Followers</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">2</span>
+          <span class="stat-label">Platform Aktif</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Semangat</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TENTANG -->
+    <div class="section">
+      <div class="section-label">Tentang Saya</div>
+      <h2>Dari Nol, Menuju Monetisasi</h2>
+      <p>
+        Aku seorang <strong style="color:#fff">affiliate marketer dan video clipper pemula</strong>
+        yang lagi dalam perjalanan membangun karir digital dari awal.
+        Saat ini fokus utamaku adalah menumbuhkan akun TikTok dan Instagram
+        sampai melewati angka 600 followers — langkah pertama menuju monetisasi nyata.
+        Aku percaya bahwa konsistensi dan terus belajar adalah kunci,
+        dan aku sedang melakukan keduanya setiap hari.
+      </p>
+    </div>
+
+    <!-- JOURNEY -->
+    <div class="section">
+      <div class="section-label">Yang Lagi Aku Pelajari</div>
+      <h2>Proses Belajarku Sekarang</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">✂️</div>
+          <div>
+            <div class="card-title">Video Clipping & Editing</div>
+            <div class="card-desc">Belajar cara memotong, menyusun, dan mengedit video yang menarik perhatian dalam 3 detik pertama.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">📈</div>
+          <div>
+            <div class="card-title">Algoritma TikTok & Instagram</div>
+            <div class="card-desc">Memahami konten seperti apa yang masuk FYP dan Explore — niche mana yang paling berpotensi menghasilkan.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">💰</div>
+          <div>
+            <div class="card-title">Affiliate Marketing</div>
+            <div class="card-desc">Mencari tau cara kerja komisi, produk mana yang worth dipromosiin, dan strategi konversi yang efektif.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLATFORM -->
+    <div class="section">
+      <div class="section-label">Platform</div>
+      <h2>Di Mana Kamu Bisa Temukan Aku</h2>
+      <div class="platform-row">
+        <div class="platform-card">
+          <span class="platform-icon">🎵</span>
+          <div class="platform-name">TikTok</div>
+          <div class="platform-status">Fokus utama</div>
+        </div>
+        <div class="platform-card">
+          <span class="platform-icon">📸</span>
+          <div class="platform-name">Instagram</div>
+          <div class="platform-status">Aktif berkembang</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSPIRASI -->
+    <div class="section">
+      <div class="section-label">Inspirasi</div>
+      <h2>Creator yang Menginspirasi</h2>
+      <p>Belajar dari yang sudah duluan berhasil.</p>
+      <div class="inspo-row">
+        <div class="inspo-chip">Leo Geovani</div>
+        <div class="inspo-chip">Reizuka Ari</div>
+      </div>
+    </div>
+
+    <!-- GOALS -->
+    <div class="section">
+      <div class="section-label">Target</div>
+      <h2>Yang Sedang Aku Kejar</h2>
+      <ul class="goals-list">
+        <li><strong>600+ followers</strong> — syarat utama buka fitur monetisasi</li>
+        <li><strong>Temukan niche</strong> — konten yang cocok dan konsisten FYP</li>
+        <li><strong>Pertama kali menghasilkan</strong> — komisi affiliate pertama</li>
+        <li><strong>Bangun skill editing</strong> — bikin clip yang bikin orang berhenti scroll</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <h2>Mari Tumbuh Bareng 🚀</h2>
+      <p>Kalau kamu juga seorang pemula atau mau kolaborasi, aku terbuka banget!</p>
+      <a href="#" class="cta-btn">Hubungi Aku</a>
+    </div>
+
+  </div>
+</body>
+</html>
